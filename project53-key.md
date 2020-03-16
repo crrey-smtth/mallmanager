@@ -36,8 +36,13 @@
     3.git add
     4.git commit -m "魏海涛"
     5.在代码托管平台（github）新建远程仓库
-    6.git push
+    6.git remote add origin https://github.com/crrey-smtth/mallmanager.git
+    6.git push -u origin master
 
 #### 07-项目-登录-新建分支-login组件-配置路由
 
-#### 02-项目-准备
+    新建一个分支 专门写登录功能
+    git branch  查看有哪些分支
+    git checkout -b 分支名 （新建，并切换至新分支）
+    新建组件，配置路由
+#### 08-项目-准备

@@ -4,7 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
-//不要忘记引入css文件
+// 不要忘记引入css文件
+
 import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.use(ElementUI)
