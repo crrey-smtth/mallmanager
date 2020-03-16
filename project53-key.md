@@ -45,4 +45,50 @@
     git branch  查看有哪些分支
     git checkout -b 分支名 （新建，并切换至新分支）
     新建组件，配置路由
-#### 08-项目-准备
+
+    注意：
+        1.commit 每完成一个小功能就commit一次
+        2.push操作master去完成
+#### 08-项目-登录-引入表单组件
+
+    >el-form
+        1.引入
+        2.调整标签（h2+el-button）
+    >:label-position="top"
+
+#### 09-项目-登录-样式调整
+
+    height:100%
+    注意：div#app  height:100%
+
+#### 10-项目-登录-axios插件
+
+    axios不是vue插件 Vue.use(axios)
+
+```js
+    import axios from 'axios'
+    const MyHttpServer = {}
+
+    MyHttpServer.install = function (Vue, options) {
+    // 4. 添加实例方法
+     Vue.prototype.$http = axios
+}
+export default MyHttpServer
+```
+    在main.js中 导入 之后 Vue.use(插件名)
+    结果：this.$http.get()
+
+#### 11-项目-登录-发送登录请求
+
+#### 12-项目-登录-引入提示框组件
+
+
+    this.$message.success(msg)
+
+#### 13-项目-登录-登录-登录成功-进入home组件
+
+#### 14-项目
+
+#### 15-项目
+
+#### 09-项目
