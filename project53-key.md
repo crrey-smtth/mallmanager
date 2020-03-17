@@ -1,5 +1,9 @@
 ### Vue项目-重点
 
+cd D:\dev_code\qian_duan\vue入门\07-代码\mallmanager53
+
+cd D:\dev_code\qian_duan\vue入门\后端项目\工作空间\vueShop-api-server
+
 ### day-07-重点
 
 #### 01-项目-准备-项目目录说明
@@ -81,14 +85,47 @@ export default MyHttpServer
 #### 11-项目-登录-发送登录请求
 
 #### 12-项目-登录-引入提示框组件
-
-
     this.$message.success(msg)
 
 #### 13-项目-登录-登录-登录成功-进入home组件
 
-#### 14-项目
+    登录成功-》来到home组件
+    1.js编程式导航this.$router.push({name :'home'})
+    2.App.vue router-view
+    3.新建hom组件
+    4.路由index.js 配置路由
 
-#### 15-项目
+#### 14-项目-登录-简化登录请求代码-async和await
 
-#### 09-项目
+```js
+// 希望 让异步代码操作看起来像同步代码操作一样
+      //1.找到异步操作有结果的代码 前面加await同时接口一步操作的结果res
+      //2.找到距离异步操作有结果的代码最近的方法 前面加async
+      // ES7   async+await
+      const res = await this.$http.post('login', this.formdata)
+      const {
+        data,
+        meta: {msg, status}
+      } = res.data
+
+      if (status === 200) {
+        this.$message.success(msg + data)
+         this.$router.push({name: 'home'})
+      } else {
+        this.$message.success(msg + data)
+      }
+```
+
+#### 15-项目-登录-保存taken值
+
+#### 16-项目-首页-布局容器-使用-样式调整
+
+#### 17-项目-首页-头部-样式调整
+
+#### 18-项目-首页-侧边栏-导航组件-文档
+
+#### 19-项目-首页-侧边栏-引入导航组件-调整
+
+#### 09-项目-首页
+
+#### 09-项目-首页

@@ -31,27 +31,41 @@ export default {
   },
   methods: {
     // 登陆请求
-    handleLogin () {
-      this.$http.post('login', this.formdata)
-        .then((res) => {
-          // console.log(res)
-          const {
-            data,
-            meta: { msg, status }
-          } = res.data
+    async handleLogin () {
+      // 希望 让异步代码操作看起来像同步代码操作一样
+      // ES7   async+await
+      const res = await this.$http.post('login', this.formdata)
+      const {
+        data,
+        meta: {msg, status}
+      } = res.data
 
-          // 不成功
-          // .提示消息
-          if (status === 200) {
-            // 登录成功
-            // 1.跳转home
-            // this.$router.push({name:'home'})
-            // 2.提示成功
-            this.$message.success(msg)
-          }else{
-              this.$message.warning(msg)
-          }
-        })
+      if (status === 200) {
+        this.$message.success(msg + data)
+         this.$router.push({name: 'home'})
+      } else {
+        this.$message.success(msg + data)
+      }
+
+      // this.$http.post('login', this.formdata)
+      //   .then((res) => {
+      //     // console.log(res)
+      //     const {
+      //       data,
+      //       meta: { msg, status }
+      //     } = res.data
+      //     // 不成功
+      //     // .提示消息
+      //     if (status === 200) {
+      //       // 登录成功
+      //       // 1.跳转home
+      //       this.$router.push({name: 'home'})
+      //       // 2.提示成功
+      //       this.$message.success(msg + data)
+      //     } else {
+      //       this.$message.warning(msg + data)
+      //     }
+      //   })
     }
   }
 }
