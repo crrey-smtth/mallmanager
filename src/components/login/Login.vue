@@ -41,10 +41,10 @@ export default {
       } = res.data
 
       if (status === 200) {
-        //0. 保存token
-        localStorage.setItem('token',data.token);
+        // 0. 保存token
+        localStorage.setItem('token', data.token)
         this.$message.success(msg + data)
-         this.$router.push({name: 'home'})
+        this.$router.push({name: 'home'})
       } else {
         this.$message.success(msg + data)
       }
