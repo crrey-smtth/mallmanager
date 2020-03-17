@@ -118,6 +118,13 @@ export default MyHttpServer
 
 #### 15-项目-登录-保存taken值
 
+    目的:如果用户没有登录->URL直接来到home组件
+    在登录成功时 保存正确的用户token
+
+```js
+   localStorage.setItem('token',data.token);
+```
+
 #### 16-项目-首页-布局容器-使用-样式调整
 
 #### 17-项目-首页-头部-样式调整
