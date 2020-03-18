@@ -147,6 +147,22 @@ export default MyHttpServer
 
 #### 20-项目-首页-进入首页的权限验证
 
+    如果没有登录过 就不能进入home组件
+
+```js
+beforeCreate() {
+    //获取token
+    const token = localStorage.getItem("token");
+    if (!token) {
+      //token 没有 -> 登录
+      this.$router.push({ name: "login" });
+    }
+    //if token 有  -> 继续渲染组件
+    //token 没有 -> 登录
+    //newVue之间自动触发
+  }
+```
+
 #### 21-项目-首页-头部-退出功能
 
 #### 22-项目-首页-合并分支-新建用户分支
