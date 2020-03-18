@@ -164,6 +164,16 @@ beforeCreate() {
 ```
 
 #### 21-项目-首页-头部-退出功能
+```js
+handleSigout() {
+      //1.清除token
+      localStorage.clear();
+      //2.提示
+      this.$message.success("用户退出");
+      //3.来到Login组件
+      this.$router.push({ name: "login" });
+    }
+```
 
 #### 22-项目-首页-合并分支-新建用户分支
 
