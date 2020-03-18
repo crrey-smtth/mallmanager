@@ -24,14 +24,16 @@
     </el-header>
     <el-container>
       <el-aside class="aside" width="200px">
-        <el-menu unique-opened="true">
+        <el-menu
+        :router="true"
+        :unique-opened="true">
           <!--1-->
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-location"></i>
               <span>用户管理</span>
             </template>
-            <el-menu-item index="1-1">
+            <el-menu-item index="users">
               <i class="el-icon-eleme"></i>
               <span>用户列表</span>
             </el-menu-item>
@@ -101,28 +103,28 @@
 
 <script>
 export default {
-  beforeCreate() {
-    //获取token
-    const token = localStorage.getItem("token");
+  beforeCreate () {
+    // 获取token
+    const token = localStorage.getItem('token')
     if (!token) {
-      //token 没有 -> 登录
-      this.$router.push({ name: "login" });
+      // token 没有 -> 登录
+      this.$router.push({ name: 'login' })
     }
-    //if token 有  -> 继续渲染组件
-    //token 没有 -> 登录
-    //newVue之间自动触发
+    // if token 有  -> 继续渲染组件
+    // token 没有 -> 登录
+    // newVue之间自动触发
   },
-  methods:{
-      handleSigout(){
-          //1.清除token
-          localStorage.clear()
-          //2.提示
-           this.$message.success("用户退出")
-           //3.来到Login组件
-           this.$router.push({ name: "login" });
-      }
+  methods: {
+    handleSigout () {
+      // 1.清除token
+      localStorage.clear()
+      // 2.提示
+      this.$message.success('用户退出')
+      // 3.来到Login组件
+      this.$router.push({ name: 'login' })
+    }
   }
-};
+}
 </script>
 
 <style >

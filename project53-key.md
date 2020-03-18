@@ -176,8 +176,17 @@ handleSigout() {
 ```
 
 #### 22-项目-首页-合并分支-新建用户分支
+    1.切换 master
+    2.git merge dev-login 合并分支
+    3.push
+    4.新建 dev-user
 
 #### 23-项目-首页-用户管理-用户列表-新建组件-路由配置
+
+    1.home.vue 开启路由模式 index值-》path值
+    2.home.vue main->router-view
+    3.新建users.vue
+    4.router/index.js 在home中children配置users的路由
 
 #### 09-项目-首页
 
