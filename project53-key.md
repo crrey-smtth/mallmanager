@@ -188,6 +188,114 @@ handleSigout() {
     3.新建users.vue
     4.router/index.js 在home中children配置users的路由
 
-#### 09-项目-首页
+### day-08重点
 
-#### 09-项目-首页
+#### 01-项目-用户管理-用户列表-面包屑和搜索框
+
+    1.el-card 卡片 小容器
+    2.面包屑
+    3.el-row>el-col>input+button
+    4.调整样式
+#### 02-项目-用户管理-用户列表-引入表格组件
+
+    1.el-table(data数据源[]) >el-table-column(lable表头/prop="数据") >字符串数据
+
+```js
+<el-table
+      :data="tableData"
+      style="width: 100%">
+      <el-table-column
+        prop="date"
+        label="日期"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="name"
+        label="姓名"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="address"
+        label="地址">
+      </el-table-column>
+    </el-table>
+```
+
+#### 03-项目-用户管理-用户列表-表头处理
+
+    按照效果 调整了表头的数量和label
+    type="index" -> 该列的每个单元格的内容从1开始的序号
+
+
+#### 04-项目-用户管理-用户列表-请求数据-设置请求头
+
+    1.created(){this.getUserList()}
+    2.methods:{geiUserList(){发送请求}}
+    3.接口文档中 除了登录之外的所有请求都需要进行授权->设置请求头
+    4.找axios中关于请求头设置的代码
+```js
+     const AUTH_TOKEN = localStorage.getItem('token')
+     this.$http.defaults.headers.common['Authorization'] = AUTH_TOKEN
+```
+    5.发送请求
+
+#### 05-项目-用户管理-用户列表-渲染数据-一般数据
+
+    1.结构固执 给this.userlist = res.data.data.users
+    2.prop=""赋值
+
+#### 06-项目-用户管理-用户列表-渲染数据-日期格式处理
+
+    1.main.js 全局过滤器 fmtdate
+    2.  
+    2.1 prop="create_time | fmtdate" 不行
+    2.2单元格中的内容只能显示文本 
+```html
+<!-- <el-table-column prop="create_time | fmtdate" label="创建日期"></el-table-column> -->
+```
+    2.3 需要给该内容外层加容器template
+    不同组件的作用域不能共享数据
+
+```html
+<template >{{create_time | fmtdate}}</template>
+```
+    2.4最终写法
+    
+    slot-scope自动取上一级找最外层标签el-table所绑定的数据userlist
+    slot-scope="scope" 此时 “scope”==userlist数组
+    scope.row是数组的每个对象
+    scope.row.create_time我们要用的数据
+
+```html
+ <!-- 如果单元格内显示的内容不是字符串（文本）
+        需要给被显示的内容外层包裹一个template-->
+
+        <!-- template 内部要用数据 设置slot-scope属性
+        该属性的值是要用数据create_time的数据源userlist-->
+
+        <!-- slot-scope 的值userlist其实就是el-table 绑定的数据userlist
+        userlist.row->数组中的每个对象-->
+        <template slot-scope="userlist">{{userlist.row.create_time | fmtdate}}</template>
+```
+
+#### 07-项目-用户管理-用户列表-渲染数据-用户状态开关
+ el-swich v-model="bool"
+
+```html
+    <el-table-column  label="用户状态">
+        <template slot-scope="scope">
+          <el-switch v-model="scope.row.mg_state" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
+        </template>
+      </el-table-column>
+
+```
+#### 08-项目-用户管理-用户列表-渲染数据-操作
+
+    操作里面不是字符串
+    template 容器 slot-scope="scope"
+    el-buttton
+    size="small" pain
+ 
+#### 09
++-项目-用户管理-用户列表
+
