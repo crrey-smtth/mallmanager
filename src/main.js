@@ -16,8 +16,8 @@ Vue.use(MyHttpServer)
 
 Vue.config.productionTip = false
 
-//全局过滤器 - 处理日期
-Vue.filter('fmtdate',(v)=>{
+// 全局过滤器 - 处理日期
+Vue.filter('fmtdate', (v) => {
   return moment(v).format('YYYY-MM-DD')
 })
 

@@ -1,8 +1,5 @@
 ### Vue项目-重点
 
-cd D:\dev_code\qian_duan\vue入门\07-代码\mallmanager53
-
-cd D:\dev_code\qian_duan\vue入门\后端项目\工作空间\vueShop-api-server
 
 ### day-07-重点
 
@@ -296,6 +293,180 @@ handleSigout() {
     el-buttton
     size="small" pain
  
-#### 09
-+-项目-用户管理-用户列表
+#### 09-用户管理-用户列表-分页组件-文档-引入
+    1.@handleSizeChange 每页显示条数变化时 触发
+    2.@handleCurrentChange 当前页改变时 触发
+    3.current-page 设置当前页是第几页
+    4.page-sizes=[2,4,6,8] 每页显示多少条的数据数组
+    5.page-size 设置多少条
+    6.total 数据总数
 
+#### 10-用户管理-用户列表-分页组件-配置数据
+
+    1.current-page="pagenum"
+    2.page-size="total"
+    3.total="total"
+
+#### 11-用户管理-用户列表-分页组件-分页请求
+    1.每页显示条数改变-> this.pagesize -> this.getUserList()
+    2.页码改变时，-> this.pagenum =val -> this.getUserList()
+    希望当每页条数改变时， 从第一页开始显示 this.pagenum=1 -> currentPage=1
+
+#### 12-用户管理-用户列表-搜索用户
+
+    1.给搜索输入框绑定query v-model="query"
+    2.点击搜索按鈕  发送请求
+    3.一键清除 clearable
+    4.点击清除按钮 -> 重新获取数据
+
+
+```html
+<el-input
+          @clear="loadUserList()"
+          clearable
+          placeholder="请输入内容"
+          v-model="query"
+          class="inputsearch"
+        >
+          <el-button @click="searchUser()" slot="append" icon="el-icon-search"></el-button>
+        </el-input>
+```
+
+#### 13-用户管理-用户列表-添加用户-显示对话框
+    1.引入对话框 -> el-form
+    2.点击添加用户的按钮-> 显示对话框 this.dialogFormVisibleAdd = true
+    3.配置对话框
+        3.1 :model=form{看接口文档中添加用户是用哪个数据}
+        3.2 dialogFormVisibleAdd：false
+        3.3 el-form>el-input v-model="form.xxx"
+
+#### 14-用户管理-用户列表-添加用户-发送请求
+    1.post this.form 
+    2.关闭对话框
+    3.清空输入框
+    4.更新视图
+    5.提示框
+
+#### 15-用户管理-用户列表-添加用户-处理响应
+
+#### 16-用户管理-用户列表-删除用户-打开确认框
+    
+    this.$confirm().then().catch()
+    1.点击确认    。then的参数
+    2.点击取消    .catch的参数
+#### 17-用户管理-用户列表-删除用户-处理响应
+
+    1.点击确定  发送delete请求
+        1.1提示
+        1.2更新数据
+        1.3回到第一页
+
+        注意async位置
+```js
+ showDeleUserMsgBox(userid) {
+      this.$confirm("刪除用戶?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+        center: true
+      })
+        .then(async () => {
+          //发送删除请求 ：id  用户id
+          //1.data中找userid
+          //2.把userId以参数形式传进来
+          const res = await this.$http.delete(`users/${userid}`);
+          //console.log(res);
+          if (res.data.meta.status === 200) {
+            //更新视图
+             this.getUserList();
+            //提示
+            this.$message({
+              type: "success",
+              message: "删除成功!"
+            })
+          }
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
+    }
+
+```
+#### 18-用户管理-用户列表-编辑用户-显示对话框
+
+    点击操作中的编辑按钮- 打开编辑对话框
+    1.提供该对话框显示/隐藏控制属性
+    2.找到编辑按钮@click
+    3.打开对话框
+    4.把之前添加对话框进行复制 -修改
+    form用的是之前添加用户时的form
+
+### day-09 重点
+
+#### 01-用户管理-用户列表-编辑用户-显示编辑数据
+
+    1.点击edit编辑按钮  scope.row
+    2.在showEditUserDia方法中  this.form = user
+#### 02-用户管理-用户列表-编辑用户-发送请求
+
+    1.找到对话框确定按钮 editUser 发送请求
+    this.form =user
+    id ->this.form.id
+
+#### 03.-用户管理-用户列表-修改用戶状态
+    1.找到开关 @change="changMgState(scope.row)"
+    2.changMgState(){发送请求}
+    user/:uid/state/:type uid用户id
+
+#### 04.项目-用户管理-用户列表-分配角色-功能演示
+
+    1.点击按钮->打开对话框
+    2.对话框 中有下拉框
+    3.修改当前角色
+    4.5个角色来源于请求
+    每个角色的权限是不同的
+
+#### 05-项目-用户管理-用户列表-分配角色-显示对话框
+    1.点击操作中的按钮   打开对话框
+    2.引入对话框 有下拉框
+    3.下拉框的特性：如果select绑定的数据的值和option的value值一样 此时显示的是该option的label值
+    4.把option分成了两类：请选择（-1）和v-for遍历option
+    5.data提供了el-select的 v-model 所绑定的数据currRoleId = -1
+
+#### 06-项目-用户管理-用户列表-分配角色-显示对话框-下拉框
+
+#### 07-项目-用户管理-用户列表-分配角色-显示当前用户角色
+
+    1.通过请求获取所有角色 roles
+    2.v-for el-option :label="item.roleName" :value="item.id"
+    3.通过请求获取当前用户的id
+    4.给el-select 中v-model绑定的数据赋值 this。currRoleid = res.data.data
+
+#### 08-项目-用户管理-用户列表-分配角色-显示当前用户角色
+
+1.通过视图操作->修改了label->value值变化->el-select v-model绑定数据变化
+2.currRoleId
+3.
+```js
+async setRole() {
+      //users/:id/role
+      //:id 要修改的用户的id 值
+      //请求体中rid 修改的新值角色id
+      const res = await this.$http.put(`users/${this.currUserId}/role`,{
+        rid:this.currRoleId
+      })
+      console.log(res);
+      this.dialogFormVisibleRol =false;
+      
+    },
+```
+
+#### 07-项目-用户管理-用户列表-分配角色-修改当前用户角色
+
+
+cd D:\dev_code\qian_duan\vue入门\07-代码\mallmanager53
+
+cd D:\dev_code\qian_duan\vue入门\后端项目\工作空间\vueShop-api-server
